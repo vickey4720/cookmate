@@ -1,0 +1,202 @@
+/* =======================================================
+   COOKMATE - FOOTER (footer.css)
+   Strictly matches Reference Image 3 / Site standard.
+   ======================================================= */
+
+.site-footer {
+  background-color: var(--dark-header);
+  color: var(--text-white-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 68px;
+  margin-top: auto;
+  position: relative;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.4fr 1.5fr;
+  gap: 48px;
+  padding-bottom: 52px;
+}
+
+/* Brand Column */
+.footer-brand .brand-logo {
+  margin-bottom: 18px;
+}
+
+.footer-brand p {
+  color: #94a3b8;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  margin-bottom: 22px;
+  max-width: 320px;
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+}
+
+.social-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cbd5e1;
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.social-btn:hover {
+  background-color: var(--primary-orange);
+  border-color: var(--primary-orange);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--primary-orange-glow);
+}
+
+/* Footer Section Headings */
+.footer-heading {
+  color: #ffffff;
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -0.2px;
+  font-family: var(--font-display);
+}
+
+/* Quick Links */
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  font-size: 0.94rem;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-links a:hover {
+  color: var(--primary-orange);
+  transform: translateX(3px);
+}
+
+/* Contact Info Column */
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 0.93rem;
+  color: #94a3b8;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.footer-contact-item > span {
+  font-size: 1.15rem;
+  color: var(--primary-orange);
+  line-height: 1.2;
+}
+
+.footer-contact-item strong {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.footer-contact-item a {
+  color: #94a3b8;
+}
+
+.footer-contact-item a:hover {
+  color: var(--primary-orange);
+}
+
+/* Stay Connected Newsletter */
+.footer-newsletter p {
+  font-size: 0.93rem;
+  color: #94a3b8;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.newsletter-form {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.newsletter-form:focus-within {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.2);
+}
+
+.newsletter-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 12px 16px;
+  color: #ffffff;
+  outline: none;
+  font-size: 0.92rem;
+}
+
+.newsletter-form input::placeholder {
+  color: #64748b;
+}
+
+.newsletter-form button {
+  background-color: var(--primary-orange);
+  color: #ffffff;
+  padding: 0 18px;
+  font-size: 1.1rem;
+  transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter-form button:hover {
+  background-color: var(--primary-orange-hover);
+}
+
+/* Footer Bottom Bar */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+.footer-legal-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-legal-links a {
+  color: #64748b;
+  transition: color var(--transition-fast);
+}
+
+.footer-legal-links a:hover {
+  color: var(--primary-orange);
+}

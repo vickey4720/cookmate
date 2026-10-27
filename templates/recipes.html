@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Discover Recipes — CookMate Recipe Discovery{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/recipes.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="recipes-page-section">
+  <div class="container">
+    
+    <!-- Page Header & Search Bar -->
+    <div class="recipes-header-wrap">
+      <span class="badge badge-orange">THEMEALDB RECIPE DISCOVERY</span>
+      <h1 class="recipes-title">
+        Discover Delicious <span class="text-orange">Recipes</span>
+      </h1>
+      <p class="recipes-subtitle">
+        Search through hundreds of verified culinary recipes from cuisines all around the globe.
+      </p>
+
+      <!-- Search Input -->
+      <div class="recipes-search-box">
+        <input type="text" id="recipe-search-input" class="recipes-search-input" 
+               placeholder="Search by recipe or dish name (e.g. Pasta, Salmon, Curry)..."
+               aria-label="Search recipes">
+        <button id="recipe-search-btn" class="btn btn-primary recipes-search-btn">
+          🔍 Search
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="recipe-categories-bar" id="recipe-categories-bar">
+      <!-- Populated dynamically by recipes.js -->
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="recipes-loading" class="recipes-loading-wrap" style="display: none;">
+      <div class="spinner-icon">🍲</div>
+      <p>Loading mouthwatering recipes from TheMealDB...</p>
+    </div>
+
+    <!-- Recipe Grid -->
+    <div class="recipe-grid" id="recipes-grid">
+      <!-- Injected by recipes.js -->
+    </div>
+
+    <!-- Empty Search State -->
+    <div id="recipes-empty" class="recipes-empty-wrap" style="display: none;">
+      <div class="empty-icon">🍲</div>
+      <h3>No Recipes Found</h3>
+      <p>Try searching for a different dish name or choose from the categories above.</p>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/recipes.js') }}"></script>
+{% endblock %}

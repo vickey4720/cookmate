@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Admin Panel — CookMate{% endblock %}</title>
+
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS Stylesheets (Strict Modular Loading Order) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+</head>
+
+<body class="admin-layout">
+
+  <!-- ================= ADMIN SIDEBAR (Strictly matching Reference Image 1) ================= -->
+  <!-- <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <span class="admin-brand-icon">👨‍🍳</span>
+      <span class="admin-brand-name">Cook<span>Mate</span></span>
+    </div>
+
+    <nav class="admin-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-item {% if admin_page == 'dashboard' %}active{% endif %}" id="admin-nav-dashboard">
+        <span class="admin-nav-icon">🏠</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="{{ url_for('admin_add_food') }}" class="admin-nav-item {% if admin_page == 'add_food' %}active{% endif %}" id="admin-nav-add-food">
+        <span class="admin-nav-icon">➕</span>
+        <span>Add Food Item</span>
+      </a>
+
+      <a href="{{ url_for('admin_manage_food') }}" class="admin-nav-item {% if admin_page == 'manage_food' %}active{% endif %}" id="admin-nav-manage-food">
+        <span class="admin-nav-icon">🍴</span>
+        <span>Manage Food Items</span>
+      </a>
+
+      <a href="{{ url_for('admin_orders') }}" class="admin-nav-item {% if admin_page == 'orders' %}active{% endif %}" id="admin-nav-orders">
+        <span class="admin-nav-icon">📅</span>
+        <span>View Orders</span>
+      </a>
+
+      <a href="{{ url_for('admin_manage_food') }}" class="admin-nav-item" id="admin-nav-categories">
+        <span class="admin-nav-icon">▦</span>
+        <span>Categories</span>
+      </a>
+
+      <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-item" id="admin-nav-users">
+        <span class="admin-nav-icon">👥</span>
+        <span>Users</span>
+      </a>
+
+      <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-item" id="admin-nav-settings">
+        <span class="admin-nav-icon">⚙️</span>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="admin-sidebar-footer">
+      <a href="{{ url_for('signout') }}" class="admin-logout-btn" id="admin-nav-logout">
+        <span>🚪</span>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside> -->
+
+  <!-- ================= ADMIN MAIN CONTENT ================= -->
+  <div class="admin-main">
+
+    <!-- Topbar with Profile Badge (Strictly matching Reference Image 1) -->
+    <header class="admin-topbar">
+      <a class="admin-profile-badge" href="{{ url_for('home') }}" title="Return to Customer Site"
+        style="text-decoration:none;">
+        <div class="admin-avatar-circle">👨‍🍳</div>
+        <span class="admin-profile-name">Admin ⌵</span>
+      </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="admin-content-area">
+      <!-- Breadcrumb (Strictly matching Reference Image 1) -->
+      <!-- <div class="admin-breadcrumb">
+        <span>🏠</span>
+        <span>/</span>
+        <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+        <span>/</span>
+        <span>{% block breadcrumb_current %}Dashboard{% endblock %}</span>
+      </div> -->
+
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="toast toast-{{ category }}" style="position: static; margin-bottom: 24px; width: 100%;">
+        <span>{% if category == 'success' %}✅{% else %}⚠️{% endif %}</span>
+        <span>{{ message }}</span>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      {% block admin_content %}{% endblock %}
+    </main>
+  </div>
+
+  <!-- Toast Notification Mount -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}AI Chef — Voice-Enabled 3D Cooking Assistant | CookMate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ai-chef.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="ai-chef-viewport">
+  <div class="ai-chef-container">
+    
+    <!-- Hero Title Header (Strictly matching Reference Image 2) -->
+    <div class="ai-chef-hero-header">
+      <div class="ai-chef-tagline-script">Your</div>
+      <h1 class="ai-chef-main-title">AI <span>Chef</span></h1>
+      <p class="ai-chef-sub">
+        Ask anything about cooking, get recipes, tips and more — by voice!
+      </p>
+    </div>
+
+    <!-- Main Stage: 3D Chef Scene on Left, Conversation Dialogue Stream on Right -->
+    <div class="ai-chef-stage">
+      
+      <!-- Left: Three.js 3D Character Viewport -->
+      <div class="chef-3d-scene-wrap">
+        <canvas id="chef-3d-canvas"></canvas>
+
+        <!-- Fallback if WebGL is disabled or loading -->
+        <div class="chef-fallback-card" id="chef-fallback-card">
+          <img src="/static/images/chef-avatar.jpg" alt="CookMate 3D Chef" class="chef-fallback-img">
+        </div>
+
+        <!-- Real-Time Character Animation State Pill -->
+        <div class="chef-state-pill">
+          <span class="state-dot" id="chef-state-dot"></span>
+          <span id="chef-state-text">Chef: Ready to Help</span>
+        </div>
+      </div>
+
+      <!-- Right: Conversation Dialogue Stream (Strictly matching Reference Image 2) -->
+      <div class="chat-dialogue-column" id="ai-dialogue-stream">
+        
+        <!-- Welcome Prompt from Chef -->
+        <div class="chef-reply-card">
+          <div class="chef-reply-header">
+            <img src="/static/images/chef-avatar.jpg" alt="Chef CookMate" class="chef-avatar-mini">
+            <span class="chef-reply-name">Chef CookMate</span>
+            <span class="chef-speech-icon">👨‍🍳✨</span>
+          </div>
+          <div class="chef-reply-body">
+            Hello food lover! I am your <strong>CookMate AI Chef</strong>. Tap the microphone below or ask me anything about cooking, recipe ideas, ingredient substitutions, or kitchen techniques. What are you cooking today?
+          </div>
+        </div>
+
+        <!-- Dialogue matching Reference Image 2 -->
+        <div class="user-speech-bubble">
+          <div class="user-bubble-avatar">👤</div>
+          <div class="user-bubble-text">Mujhe aloo aur paneer se kya bana sakte ho?</div>
+        </div>
+
+        <div class="chef-reply-card">
+          <div class="chef-reply-header">
+            <img src="/static/images/chef-avatar.jpg" alt="Chef CookMate" class="chef-avatar-mini">
+            <span class="chef-reply-name">Chef CookMate</span>
+            <span class="chef-speech-icon">👨‍🍳✨</span>
+          </div>
+          <div class="chef-reply-body">
+            Aap aloo aur paneer se bahut saari tasty dishes bana sakte hain. Yahan 3 best options hain:
+            <ol class="chef-steps-list">
+              <li><strong>1. Aloo Paneer ki Sabzi</strong> — Rich tomato gravy with soft paneer cubes.</li>
+              <li><strong>2. Aloo Paneer Paratha</strong> — Stuffed whole wheat paratha with butter.</li>
+              <li><strong>3. Aloo Paneer Sandwich</strong> — Crispy toasted sandwich with green chutney.</li>
+            </ol>
+            <img src="https://www.themealdb.com/images/media/meals/uwxqwy1483389553.jpg" alt="Aloo Paneer ki Sabzi" class="chef-reply-dish-img">
+            Main aapko Aloo Paneer ki Sabzi ki recipe step-by-step bata deta hun. Ready?
+          </div>
+          <div class="chef-reply-actions">
+            <button class="chef-action-btn" onclick="window.aiChef && window.aiChef.speakResponse('Aap aloo aur paneer se bahut saari tasty dishes bana sakte hain: Aloo Paneer ki Sabzi, Aloo Paneer Paratha, aur Aloo Paneer Sandwich.')">
+              🔊 Listen
+            </button>
+            <button class="chef-action-btn" onclick="window.aiChef && window.aiChef.handleVoiceInput('Tell me the recipe for Aloo Paneer Sabzi step by step')">
+              👉 Tell Recipe Step-by-Step
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Voice Control Console (Waveform + Glowing Orange Mic Button) -->
+    <div class="voice-console-panel">
+      <div class="voice-mic-wrapper" id="voice-mic-wrapper">
+        
+        <!-- Left Pulsing Waveform -->
+        <div class="waveform-bars" id="waveform-left">
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+        </div>
+
+        <!-- Glowing Orange Mic Button -->
+        <button class="mic-btn-main" id="voice-mic-btn" title="Tap to Speak with AI Chef" aria-label="Microphone">
+          🎙️
+        </button>
+
+        <!-- Right Pulsing Waveform -->
+        <div class="waveform-bars" id="waveform-right">
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+        </div>
+
+      </div>
+
+      <!-- Live Voice Status Text -->
+      <div class="voice-status-text" id="voice-status-text">
+        Ready to assist! Tap the microphone or type below
+      </div>
+
+      <!-- Stop Control -->
+      <button class="voice-stop-btn" id="voice-stop-btn" style="display: none;">
+        <span class="stop-square-icon"></span> Stop
+      </button>
+    </div>
+
+    <!-- Fallback Text Input & Quick Suggestions -->
+    <div style="max-width: 720px; width: 100%; margin: 0 auto;">
+      <div class="ai-chef-input-bar">
+        <input type="text" id="ai-text-input" placeholder="Type a cooking question (e.g. How to make creamy pasta sauce?)..." aria-label="Ask cooking question">
+        <button class="ai-chef-submit-btn" id="ai-submit-btn">
+          <span>Ask</span> ➔
+        </button>
+      </div>
+
+      <div class="ai-quick-prompts">
+        <button class="quick-prompt-chip" onclick="document.getElementById('ai-text-input').value=this.textContent; document.getElementById('ai-submit-btn').click();">Quick 20-min dinner ideas</button>
+        <button class="quick-prompt-chip" onclick="document.getElementById('ai-text-input').value=this.textContent; document.getElementById('ai-submit-btn').click();">Best substitute for buttermilk</button>
+        <button class="quick-prompt-chip" onclick="document.getElementById('ai-text-input').value=this.textContent; document.getElementById('ai-submit-btn').click();">How to make crispy pizza</button>
+        <button class="quick-prompt-chip" onclick="document.getElementById('ai-text-input').value=this.textContent; document.getElementById('ai-submit-btn').click();">Authentic Biryani spices guide</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Three.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- 3D Chef Character Model Script -->
+<script src="{{ url_for('static', filename='js/chef_3d.js') }}"></script>
+<!-- AI Voice Assistant Script -->
+<script src="{{ url_for('static', filename='js/ai_chef.js') }}"></script>
+{% endblock %}

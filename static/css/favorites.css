@@ -1,0 +1,209 @@
+/* =======================================================
+   COOKMATE - FAVORITES PAGE (favorites.css)
+   Strictly matches Reference Image 4: 4-column card grid,
+   dark hero banner with skillet dish, and red heart controls.
+   ======================================================= */
+
+/* =======================================================
+   1. HERO BANNER
+   ======================================================= */
+.fav-hero {
+  background: #0f1412 url('/static/images/pasta-skillet.jpg') right center / cover no-repeat;
+  color: #ffffff;
+  position: relative;
+  padding: 64px 0 74px;
+  overflow: hidden;
+}
+
+.fav-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(14, 18, 20, 0.96) 0%, rgba(14, 18, 20, 0.82) 55%, rgba(14, 18, 20, 0.35) 100%);
+  pointer-events: none;
+}
+
+.fav-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.fav-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 87, 34, 0.2);
+  border: 1px solid var(--primary-orange);
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.fav-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.fav-hero-sub {
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  max-width: 520px;
+  line-height: 1.5;
+}
+
+/* =======================================================
+   2. 4-COLUMN FAVORITES GRID
+   ======================================================= */
+.favorites-section {
+  padding: 56px 0 88px;
+  background-color: var(--light-bg);
+}
+
+.fav-4col-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Card overrides for exact Reference Image 4 look */
+.fav-recipe-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  position: relative;
+}
+
+.fav-recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.fav-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/11;
+  overflow: hidden;
+  background-color: #f1f5f9;
+}
+
+.fav-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.fav-recipe-card:hover .fav-card-media img {
+  transform: scale(1.06);
+}
+
+/* White Circle Heart Button with Red Heart */
+.fav-heart-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  z-index: 5;
+}
+
+.fav-heart-btn:hover {
+  transform: scale(1.15);
+}
+
+.fav-card-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.fav-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.fav-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.fav-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fav-card-meta span.rating {
+  font-weight: 700;
+  color: #d97706;
+}
+
+.fav-view-btn {
+  margin-top: auto;
+  width: 100%;
+  border: 1.5px solid var(--primary-orange);
+  color: var(--primary-orange);
+  background-color: #ffffff;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.fav-view-btn:hover {
+  background-color: var(--primary-orange);
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--primary-orange-glow);
+}
+
+/* Empty Favorites State */
+.fav-empty-container {
+  text-align: center;
+  padding: 80px 24px;
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--light-border);
+  box-shadow: var(--shadow-sm);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.fav-empty-icon {
+  font-size: 3.8rem;
+  margin-bottom: 16px;
+}

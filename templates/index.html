@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}CookMate — Discover Recipes, Order Food & AI Chef{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO SECTION ================= -->
+<section class="hero-home">
+  <!-- Ambient background glow -->
+  <div class="hero-glow-ambient"></div>
+
+  <div class="container">
+    <div class="hero-badge-pill">
+      ✨ All-in-One Smart Food Platform
+    </div>
+
+    <h1 class="hero-main-heading">
+      Welcome to <span class="text-orange">CookMate</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Discover Recipes, Get Cooking, or Order Your Favourite Food All in One Place.
+    </p>
+
+    <!-- Search Bar with Voice Microphone -->
+    <div class="hero-search-wrap">
+      <span class="hero-search-icon">🔍</span>
+      <input type="text" id="home-search-input" class="hero-search-input" 
+             placeholder="Search for dishes, recipes (e.g. Pasta, Pizza, Biryani)..." 
+             onkeydown="if(event.key === 'Enter') executeHomeSearch()"
+             aria-label="Search dishes and recipes">
+      
+      <!-- Speech Recognition Voice Mic -->
+      <button id="home-mic-btn" class="hero-mic-btn" title="Speak to Search" onclick="listenForSearchQuery()" aria-label="Voice Search">
+        🎤
+      </button>
+
+      <button onclick="executeHomeSearch()" class="btn btn-primary hero-search-btn" id="home-search-submit">
+        Search
+      </button>
+    </div>
+
+    <!-- Category Quick Chips -->
+    <div class="hero-chips-wrap">
+      <span class="hero-chips-label">Popular:</span>
+      {% set categories = ['Chicken', 'Pasta', 'Seafood', 'Vegetarian', 'Dessert', 'Breakfast', 'Pizza'] %}
+      {% for cat in categories %}
+        <a href="{{ url_for('recipes_page') }}?c={{ cat }}" class="hero-chip">
+          {{ cat }}
+        </a>
+      {% endfor %}
+      <a href="{{ url_for('recipes_page') }}?surprise=true" class="hero-chip hero-chip-surprise">
+        🎲 Surprise Me!
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= 4 PLATFORM FEATURE CARDS ================= -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-header-centered">
+      <span class="badge badge-orange">EVERYTHING YOU NEED</span>
+      <h2 class="section-title">Explore the CookMate Experience</h2>
+    </div>
+
+    <div class="features-grid">
+      
+      <!-- Card 1: Explore Recipes -->
+      <div class="feature-card">
+        <div class="feature-icon-badge">
+          📖
+        </div>
+        <h3>Explore Recipes</h3>
+        <p>
+          Discover hundreds of verified global recipes powered by TheMealDB with detailed ingredient measurements and step-by-step instructions.
+        </p>
+        <a href="{{ url_for('recipes_page') }}" class="btn btn-outline btn-sm">
+          Browse Recipes →
+        </a>
+      </div>
+
+      <!-- Card 2: Order Delicious Food -->
+      <div class="feature-card">
+        <div class="feature-icon-badge">
+          🛵
+        </div>
+        <h3>Order Delicious Food</h3>
+        <p>
+          Hungry right now? Order freshly cooked restaurant dishes from our menu with simple Cash on Delivery (COD) checkout.
+        </p>
+        <a href="{{ url_for('food_order_page') }}" class="btn btn-primary btn-sm">
+          Order Food Now →
+        </a>
+      </div>
+
+      <!-- Card 3: Save Your Favorites -->
+      <div class="feature-card">
+        <div class="feature-icon-badge" style="background-color: #fee2e2; color: #e11d48;">
+          ❤️
+        </div>
+        <h3>Save Your Favorites</h3>
+        <p>
+          Bookmark meals you adore with a single click. Keep your personal recipe book stored safely in your account forever.
+        </p>
+        <a href="{{ url_for('favorites_page') }}" class="btn btn-outline btn-sm">
+          View Saved Meals →
+        </a>
+      </div>
+
+      <!-- Card 4: AI Chef Assistant -->
+      <div class="feature-card">
+        <div class="feature-icon-badge" style="background-color: #e0f2fe; color: #0284c7;">
+          🤖
+        </div>
+        <h3>AI Chef Assistant</h3>
+        <p>
+          Ask cooking questions with your real voice! Our animated 3D chef listens, thinks, and answers with spoken advice.
+        </p>
+        <a href="{{ url_for('ai_chef_page') }}" class="btn btn-primary btn-sm">
+          Talk to AI Chef →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURED ORDERABLE DISHES PROMOTION ================= -->
+<section class="featured-food-section">
+  <div class="container">
+    <div class="section-header-row">
+      <div>
+        <span class="badge badge-orange" style="margin-bottom: 8px;">FRESH FROM OUR KITCHEN</span>
+        <h2 class="section-title">Featured Food Dishes</h2>
+      </div>
+      <a href="{{ url_for('food_order_page') }}" class="btn btn-outline">View Full Menu →</a>
+    </div>
+
+    <div class="food-grid">
+      {% for item in featured_food %}
+        <article class="food-card">
+          <div class="card-media">
+            <img src="{{ item.image_url }}" alt="{{ item.name }}" loading="lazy" onerror="this.src='/static/images/pizza.jpg'">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ item.name }}</h3>
+            <div class="card-meta">
+              <span>⭐ {{ item.rating }}</span>
+              <span>🕒 {{ item.prep_time }}</span>
+              <span>👥 {{ item.serving_size }}</span>
+            </div>
+            <p class="card-desc">{{ item.description }}</p>
+            <div class="card-footer">
+              <div class="price-box">
+                {% if item.discount_price and item.discount_price < item.price %}
+                  <span class="current-price">₹{{ item.discount_price | round(0) }}</span>
+                  <span class="original-price">₹{{ item.price | round(0) }}</span>
+                {% else %}
+                  <span class="current-price">₹{{ item.price | round(0) }}</span>
+                {% endif %}
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('{{ item.id }}')" id="home-cart-add-{{ item.id }}">
+                🛒 Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI CHEF PREVIEW BANNER ================= -->
+<section class="ai-chef-preview-section">
+  <div class="container">
+    <div class="ai-chef-preview-card">
+      
+      <div class="ai-chef-preview-content">
+        <span class="badge badge-orange">INTERACTIVE 3D COMPANION</span>
+        <h2 class="ai-chef-preview-title">
+          Meet Your Voice-Enabled <span class="text-orange">AI Chef</span>
+        </h2>
+        <p class="ai-chef-preview-desc">
+          Have leftover ingredients in your fridge? Need quick dinner suggestions or step-by-step cooking tips? 
+          Just ask out loud! Our real animated 3D chef listens and speaks back recipes immediately.
+        </p>
+        <div class="ai-chef-preview-actions">
+          <a href="{{ url_for('ai_chef_page') }}" class="btn btn-primary btn-lg">
+            🎙️ Start Voice Chat with AI Chef
+          </a>
+          <a href="{{ url_for('about_page') }}" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.3); color: #fff;">
+            Learn More
+          </a>
+        </div>
+      </div>
+
+      <div class="ai-chef-preview-avatar-wrap">
+        <img src="/static/images/chef-avatar.jpg" alt="CookMate AI Chef" class="ai-chef-preview-img">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function executeHomeSearch() {
+  const query = document.getElementById('home-search-input').value.trim();
+  if (query) {
+    window.location.href = `{{ url_for('recipes_page') }}?q=${encodeURIComponent(query)}`;
+  } else {
+    window.location.href = `{{ url_for('recipes_page') }}`;
+  }
+}
+
+function listenForSearchQuery() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showToast('Speech recognition not supported in this browser. Please type your search!', 'info');
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  const micBtn = document.getElementById('home-mic-btn');
+  const input = document.getElementById('home-search-input');
+
+  if (micBtn) micBtn.classList.add('listening');
+  showToast('Listening... Speak your recipe search', 'info');
+
+  recognition.onresult = (e) => {
+    const transcript = e.results[0][0].transcript;
+    if (input) input.value = transcript;
+    showToast(`Searching for "${transcript}"`, 'success');
+    setTimeout(() => executeHomeSearch(), 600);
+  };
+
+  recognition.onerror = () => {
+    if (micBtn) micBtn.classList.remove('listening');
+    showToast('Could not hear voice input clearly.', 'error');
+  };
+
+  recognition.onend = () => {
+    if (micBtn) micBtn.classList.remove('listening');
+  };
+
+  recognition.start();
+}
+</script>
+{% endblock %}

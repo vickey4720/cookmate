@@ -1,0 +1,12 @@
+/* =======================================================
+   COOKMATE - UNIFIED SYSTEM BUNDLE (style.css)
+   Reorganized into modular stylesheets as per CookMate Architecture.
+   ======================================================= */
+
+@import url('base.css');
+@import url('components.css');
+@import url('navbar.css');
+@import url('cart.css');
+@import url('recipe-detail.css');
+@import url('footer.css');
+@import url('responsive.css');

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Create an Account — CookMate | Good Food, Better Mood{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="auth-viewport">
+  <div class="auth-container">
+    
+    <!-- Brand Header -->
+    <div class="auth-brand-wrap">
+      <div class="auth-brand-hat">👨‍🍳</div>
+      <div class="auth-brand-title">
+        Cook<span>Mate</span>
+      </div>
+      <div class="auth-brand-sub">Good Food, Better Mood</div>
+    </div>
+
+    <!-- Sign Up Card -->
+    <div class="auth-card">
+      <h2 class="auth-card-title">
+        Create an Account
+      </h2>
+      <p class="auth-card-sub">
+        Join CookMate and explore delicious culinary recipes.
+      </p>
+
+      <form action="{{ url_for('signup') }}" method="POST">
+        <!-- Full Name Field with Icon -->
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon">👤</span>
+          <input type="text" name="name" class="auth-input" placeholder="Full Name" required 
+                 aria-label="Full Name">
+        </div>
+
+        <!-- Email Field with Icon -->
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon">✉️</span>
+          <input type="email" name="email" class="auth-input" placeholder="Email Address" required 
+                 aria-label="Email Address">
+        </div>
+
+        <!-- Password Field with Lock & Eye Toggle -->
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon">🔒</span>
+          <input type="password" id="signup-password" name="password" class="auth-input" placeholder="Password (min 6 chars)" required minlength="6"
+                 aria-label="Password">
+          <button type="button" class="auth-password-toggle" onclick="togglePasswordVisibility('signup-password', this)" title="Show/Hide Password" aria-label="Toggle Password Visibility">
+            👁️
+          </button>
+        </div>
+
+        <!-- Confirm Password Field with Lock & Eye Toggle -->
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon">🔒</span>
+          <input type="password" id="signup-confirm" name="confirm_password" class="auth-input" placeholder="Confirm Password" required minlength="6"
+                 aria-label="Confirm Password">
+          <button type="button" class="auth-password-toggle" onclick="togglePasswordVisibility('signup-confirm', this)" title="Show/Hide Password" aria-label="Toggle Password Visibility">
+            👁️
+          </button>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary auth-submit-btn" id="signup-submit-btn" style="margin-top: 8px;">
+          Create Account ➔
+        </button>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <div class="auth-divider-line"></div>
+          <span class="auth-divider-text">or</span>
+          <div class="auth-divider-line"></div>
+        </div>
+
+        <!-- Sign In Link -->
+        <div class="auth-switch-text">
+          Already have an account? <a href="{{ url_for('signin') }}" id="signup-switch-signin">Sign In</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    btn.textContent = '👁️';
+  }
+}
+</script>
+{% endblock %}

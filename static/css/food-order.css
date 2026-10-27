@@ -1,0 +1,506 @@
+/* =======================================================
+   COOKMATE - FOOD ORDERING PAGE (food-order.css)
+   Strictly matches Reference Image 5 layout & styling.
+   ======================================================= */
+
+/* =======================================================
+   1. HERO BANNER
+   ======================================================= */
+.food-order-hero {
+  background: linear-gradient(135deg, #0e1214 0%, #161c1f 65%, #1e262a 100%);
+  color: #ffffff;
+  padding: 60px 0 68px;
+  position: relative;
+  overflow: hidden;
+}
+
+.food-order-hero::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 87, 34, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.food-order-hero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.food-order-hero-text h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.18;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.food-order-hero-text p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 540px;
+}
+
+/* Search Bar in Hero */
+.food-order-search-bar {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: var(--radius-full);
+  padding: 6px 8px 6px 20px;
+  max-width: 560px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  margin-bottom: 28px;
+}
+
+.food-order-search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.98rem;
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  background: transparent;
+}
+
+.food-order-search-bar input::placeholder {
+  color: #94a3b8;
+}
+
+.food-order-search-bar button {
+  background-color: var(--primary-orange);
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  padding: 10px 26px;
+  font-weight: 700;
+  font-size: 0.94rem;
+  transition: background-color var(--transition-fast);
+}
+
+.food-order-search-bar button:hover {
+  background-color: var(--primary-orange-hover);
+}
+
+/* 4 Feature Pills in Hero */
+.food-order-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.food-feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* Right Food Image in Hero */
+.food-order-hero-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.food-order-hero-media img {
+  max-height: 290px;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.12);
+}
+
+/* =======================================================
+   2. MAIN 3-COLUMN WORKSPACE
+   ======================================================= */
+.food-order-section {
+  padding: 44px 0 80px;
+  background-color: var(--light-bg);
+}
+
+.food-order-3col-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr 310px;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+/* --- Left Column: Categories Panel --- */
+.food-categories-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--light-border);
+  padding: 22px 16px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 92px;
+}
+
+.food-categories-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--light-border);
+}
+
+.food-categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.food-category-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.94rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1.5px solid transparent;
+}
+
+.food-category-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.food-category-item-left span.icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+.food-category-item:hover {
+  background-color: var(--warm-peach-bg);
+  color: var(--primary-orange);
+}
+
+/* Active Category Pill: Solid Orange */
+.food-category-item.active {
+  background-color: var(--primary-orange-light);
+  color: var(--primary-orange);
+  border-color: var(--primary-orange-border);
+  font-weight: 700;
+}
+
+.food-category-item.active::after {
+  content: '›';
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* --- Center Column: Food Items Catalog --- */
+.food-catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--light-border);
+}
+
+.food-catalog-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.food-catalog-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  background-color: var(--primary-orange);
+  border-radius: 2px;
+}
+
+.food-sort-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.food-sort-select {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--light-border);
+  background-color: #ffffff;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+/* 3-Column Food Items Grid */
+.food-items-3col-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* --- Right Column: Your Cart & Promos --- */
+.food-sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 92px;
+}
+
+/* Live Cart Card */
+.food-cart-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--light-border);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.food-cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--light-border);
+  margin-bottom: 16px;
+}
+
+.food-cart-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.food-cart-clear-btn {
+  color: #ef4444;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.food-cart-clear-btn:hover {
+  text-decoration: underline;
+}
+
+/* Cart Item Rows in Sidebar */
+.food-cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 280px;
+  overflow-y: auto;
+  margin-bottom: 18px;
+  padding-right: 4px;
+}
+
+.sidebar-cart-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.sidebar-cart-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background-color: #f1f5f9;
+}
+
+.sidebar-cart-info {
+  flex: 1;
+}
+
+.sidebar-cart-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+
+.sidebar-cart-price {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--primary-orange);
+}
+
+.sidebar-cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-cart-controls button.qty-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.sidebar-cart-controls button.qty-btn:hover {
+  background-color: var(--primary-orange);
+  color: #ffffff;
+  border-color: var(--primary-orange);
+}
+
+.sidebar-cart-qty {
+  font-size: 0.86rem;
+  font-weight: 700;
+  min-width: 14px;
+  text-align: center;
+}
+
+.sidebar-cart-trash {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  padding: 4px;
+}
+
+.sidebar-cart-trash:hover {
+  color: #ef4444;
+}
+
+.food-cart-total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0 16px;
+  border-top: 1px solid var(--light-border);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.food-cart-checkout-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-md);
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+/* Sidebar Promo Card 1: Special Combos */
+.sidebar-promo-card-combos {
+  background: linear-gradient(135deg, #182024 0%, #0d1214 100%);
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-promo-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fb923c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-promo-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sidebar-promo-btn {
+  background-color: var(--primary-orange);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  font-weight: 700;
+  align-self: flex-start;
+  transition: background-color var(--transition-fast);
+}
+
+.sidebar-promo-btn:hover {
+  background-color: var(--primary-orange-hover);
+}
+
+/* Sidebar Promo Card 2: Fast & Fresh Delivery */
+.sidebar-promo-card-delivery {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.delivery-promo-title {
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #14532d;
+  margin-bottom: 4px;
+}
+
+.delivery-promo-sub {
+  font-size: 0.82rem;
+  color: #15803d;
+  margin-bottom: 10px;
+}
+
+.delivery-promo-btn {
+  background-color: var(--primary-orange);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}

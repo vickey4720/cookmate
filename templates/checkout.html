@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout — Cash on Delivery | CookMate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="checkout-section">
+  <div class="container">
+    
+    <div class="checkout-header">
+      <span class="badge badge-orange">SECURE CHECKOUT</span>
+      <h1 class="checkout-title">
+        Complete Your <span class="text-orange">Order</span>
+      </h1>
+    </div>
+
+    {% if cart_items and cart_items | length > 0 %}
+      <div class="checkout-layout">
+        
+        <!-- Left: Delivery Address Form Card -->
+        <div class="checkout-form-card">
+          <h2 class="checkout-card-heading">
+            <span>📍</span> Delivery Information
+          </h2>
+
+          <form action="{{ url_for('place_order') }}" method="POST" id="checkout-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="customer_name">Full Name <span class="required">*</span></label>
+                <input type="text" id="customer_name" name="customer_name" class="form-input" required 
+                       value="{{ session.get('user_name', '') }}" placeholder="Enter recipient name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="customer_phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="customer_phone" name="customer_phone" class="form-input" required 
+                       value="{{ user.get('phone', '7464838401') if user else '7464838401' }}" placeholder="e.g. 7464838401">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="customer_email">Email Address <span class="required">*</span></label>
+              <input type="email" id="customer_email" name="customer_email" class="form-input" required 
+                     value="{{ session.get('user_email', '') }}" placeholder="Order confirmation email">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="delivery_address">Delivery Street Address <span class="required">*</span></label>
+              <textarea id="delivery_address" name="delivery_address" class="form-textarea" required 
+                        placeholder="House / Flat No., Street, Landmark, City, PIN code..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="order_notes">Delivery Instructions (Optional)</label>
+              <input type="text" id="order_notes" name="notes" class="form-input" placeholder="e.g. Ring the doorbell, leave at door">
+            </div>
+
+            <!-- Payment Method Selection -->
+            <div class="payment-method-box">
+              <input type="radio" id="payment_cod" name="payment_method" value="Cash on Delivery" checked>
+              <div>
+                <label for="payment_cod" class="payment-method-title">Cash on Delivery (COD)</label>
+                <div class="payment-method-desc">Pay safely with cash or UPI when your food arrives at your door.</div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary checkout-submit-btn" id="place-order-submit-btn">
+              🛒 Place Order with Cash on Delivery
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: Order Summary Card -->
+        <aside class="checkout-summary-card">
+          <h2 class="checkout-summary-title">
+            Order Summary ({{ cart_items | length }} items)
+          </h2>
+
+          <div class="checkout-items-list">
+            {% for item in cart_items %}
+              {% set price = item.discount_price if item.discount_price else item.price %}
+              <div class="checkout-item-row">
+                <img src="{{ item.image_url }}" alt="{{ item.name }}" class="checkout-item-thumb" onerror="this.src='/static/images/pizza.jpg'">
+                <div style="flex: 1;">
+                  <div class="checkout-item-name">{{ item.name }}</div>
+                  <div class="checkout-item-sub">Qty: {{ item.quantity }} × ₹{{ price | round(2) }}</div>
+                </div>
+                <div class="checkout-item-total">
+                  ₹{{ (price * item.quantity) | round(2) }}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <!-- Total Calculation -->
+          <div class="checkout-calc-breakdown">
+            <div class="checkout-calc-row">
+              <span>Items Subtotal:</span>
+              <span>₹{{ total_amount | round(2) }}</span>
+            </div>
+            <div class="checkout-calc-row">
+              <span>Delivery Fee:</span>
+              <span style="color: #16a34a; font-weight: 700;">FREE</span>
+            </div>
+            <div class="checkout-calc-row">
+              <span>Taxes & Packaging:</span>
+              <span>₹0.00</span>
+            </div>
+          </div>
+
+          <div class="checkout-grand-total-row">
+            <span class="checkout-grand-total-label">Grand Total:</span>
+            <span class="checkout-grand-total-num">₹{{ total_amount | round(2) }}</span>
+          </div>
+        </aside>
+
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <div class="empty-state-icon">🛒</div>
+        <h3>Your Shopping Cart is Empty</h3>
+        <p>Add some delicious dishes from our food ordering menu first.</p>
+        <a href="{{ url_for('food_order_page') }}" class="btn btn-primary">Browse Food Menu →</a>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

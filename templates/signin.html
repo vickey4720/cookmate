@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In — CookMate | Good Food, Better Mood{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="auth-viewport">
+  <div class="auth-container">
+    
+    <!-- Brand Header -->
+    <div class="auth-brand-wrap">
+      <div class="auth-brand-hat">👨‍🍳</div>
+      <div class="auth-brand-title">
+        Cook<span>Mate</span>
+      </div>
+      <div class="auth-brand-sub">Good Food, Better Mood</div>
+    </div>
+
+    <!-- Sign In Card -->
+    <div class="auth-card">
+      <h2 class="auth-card-title">
+        Welcome Back!
+      </h2>
+      <p class="auth-card-sub">
+        Sign in to continue your cooking and food journey.
+      </p>
+
+      <form action="{{ url_for('signin') }}" method="POST">
+        <!-- Email Field with Icon -->
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon">✉️</span>
+          <input type="email" name="email" class="auth-input" placeholder="Email Address" required 
+                 aria-label="Email Address">
+        </div>
+
+        <!-- Password Field with Lock & Eye Toggle -->
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon">🔒</span>
+          <input type="password" id="signin-password" name="password" class="auth-input" placeholder="Password" required 
+                 aria-label="Password">
+          <button type="button" class="auth-password-toggle" onclick="togglePasswordVisibility('signin-password', this)" title="Show/Hide Password" aria-label="Toggle Password Visibility">
+            👁️
+          </button>
+        </div>
+
+        <!-- Remember me & Forgot Password -->
+        <div class="auth-remember-row">
+          <label class="auth-remember-label">
+            <input type="checkbox" name="remember_me" checked>
+            Remember me
+          </label>
+          <a href="#" onclick="showToast('Password reset link is available through your registered email.', 'info'); return false;" class="auth-forgot-link">
+            Forgot Password?
+          </a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary auth-submit-btn" id="signin-submit-btn">
+          Sign In ➔
+        </button>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <div class="auth-divider-line"></div>
+          <span class="auth-divider-text">or</span>
+          <div class="auth-divider-line"></div>
+        </div>
+
+        <!-- Sign Up Link -->
+        <div class="auth-switch-text">
+          Don't have an account? <a href="{{ url_for('signup') }}" id="signin-switch-signup">Sign Up</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    btn.textContent = '👁️';
+  }
+}
+</script>
+{% endblock %}

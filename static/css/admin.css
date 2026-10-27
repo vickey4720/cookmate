@@ -1,0 +1,793 @@
+/* =======================================================
+   COOKMATE - ADMIN PANEL (admin.css)
+   Strictly matches Reference Image 1: Dark sidebar,
+   clean white form workspace, live preview card, and table styling.
+   ======================================================= */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  font-family: var(--font-sans);
+}
+
+/* =======================================================
+   1. ADMIN SIDEBAR (Strictly matching Reference Image 1)
+   ======================================================= */
+.admin-sidebar {
+  width: 260px;
+  background-color: #111315;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 280px;
+  background: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg' opacity='0.03'%3E%3Cpath fill='%23ffffff' d='M60 20c-10 0-18 6-18 14 0 3 1 6 3 8-6 2-10 8-10 14 0 8 7 14 15 14h20c8 0 15-6 15-14 0-6-4-12-10-14 2-2 3-5 3-8 0-8-8-14-18-14zm-20 60h40v10H40zm0 15h40v5H40z'/%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+
+.admin-brand {
+  padding: 24px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-brand-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.admin-brand-name {
+  font-size: 1.38rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: var(--font-display);
+}
+
+.admin-brand-name span {
+  color: var(--primary-orange);
+}
+
+.admin-nav {
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.admin-nav-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Active Nav Item: Solid Orange Rounded Rectangle */
+.admin-nav-item.active {
+  background: var(--primary-orange);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 14px var(--primary-orange-glow);
+}
+
+.admin-nav-icon {
+  font-size: 1.15rem;
+  width: 22px;
+  text-align: center;
+}
+
+.admin-sidebar-footer {
+  padding: 18px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.admin-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  color: #ef4444;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  width: 100%;
+}
+
+.admin-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
+/* =======================================================
+   2. TOPBAR & BREADCRUMBS
+   ======================================================= */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #ffffff;
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 64px;
+  padding: 0 36px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  transition: all var(--transition-fast);
+}
+
+.admin-profile-badge:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.admin-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-orange) 0%, #ff7043 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px var(--primary-orange-glow);
+}
+
+.admin-profile-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-dark);
+}
+
+.admin-content-area {
+  padding: 32px 36px 60px;
+  flex: 1;
+}
+
+/* Breadcrumbs */
+.admin-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #94a3b8;
+  margin-bottom: 24px;
+  justify-content: flex-end;
+}
+
+.admin-breadcrumb a {
+  color: #64748b;
+  text-decoration: none;
+}
+
+.admin-breadcrumb a:hover {
+  color: var(--primary-orange);
+}
+
+.admin-page-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.admin-page-title span {
+  color: var(--primary-orange);
+}
+
+.admin-page-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 28px;
+}
+
+/* =======================================================
+   3. 2-COLUMN WORKSPACE: ADD FOOD FORM & LIVE PREVIEW
+   ======================================================= */
+.admin-form-workspace {
+  display: grid;
+  grid-template-columns: 1.35fr 0.9fr;
+  gap: 36px;
+  align-items: flex-start;
+}
+
+.admin-card-box {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 32px 0 0 0;
+}
+
+.admin-card-box .form-group {
+  margin-bottom: 20px;
+}
+
+.admin-card-box .form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.admin-card-box .form-input,
+.admin-card-box .form-select,
+.admin-card-box .form-textarea {
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+}
+
+.admin-card-box .form-input:focus,
+.admin-card-box .form-select:focus,
+.admin-card-box .form-textarea:focus {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12);
+}
+
+/* File Upload Field */
+.file-upload-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all var(--transition-fast);
+}
+
+.file-upload-box:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.file-upload-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.file-upload-name {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.file-help-text {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+/* Form Action Buttons */
+.form-actions-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.btn-admin-submit {
+  background: var(--primary-orange);
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.96rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px var(--primary-orange-glow);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.btn-admin-submit:hover {
+  background: var(--primary-orange-hover);
+  transform: translateY(-1.5px);
+}
+
+.btn-admin-reset {
+  background: #ffffff;
+  color: var(--text-dark);
+  border: 1.5px solid #e2e8f0;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.96rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.btn-admin-reset:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* =======================================================
+   RIGHT COLUMN: REAL-TIME LIVE PREVIEW CARD
+   (Strictly matching Reference Image 1)
+   ======================================================= */
+.admin-preview-column {
+  background: #fff8f4;
+  border: 1.5px solid #ffedd5;
+  border-radius: 20px;
+  padding: 28px;
+  position: sticky;
+  top: 92px;
+}
+
+.preview-heading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.preview-sub {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+/* The Nested White Food Card */
+.preview-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+.preview-img-wrap {
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.preview-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-card-body {
+  padding: 20px;
+}
+
+.preview-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.preview-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.preview-rating {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.preview-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.preview-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.preview-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.preview-prices {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.preview-current-price {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--primary-orange);
+}
+
+.preview-original-price {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.preview-add-btn {
+  background: var(--primary-orange);
+  color: #ffffff;
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* =======================================================
+   ADMIN TABLES (Manage Food & Orders)
+   ======================================================= */
+.admin-table-wrap {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid #e2e8f0;
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+  margin-top: 18px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.admin-table thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.admin-table tbody td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #fafaf9;
+}
+
+/* Orders Page Elements */
+.orders-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.orders-header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.orders-export-btn,
+.orders-refresh-btn {
+  padding: 9px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.orders-export-btn:hover,
+.orders-refresh-btn:hover {
+  border-color: var(--primary-orange);
+  color: var(--primary-orange);
+}
+
+.orders-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.orders-stat-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-xs);
+}
+
+.stat-icon {
+  font-size: 1.8rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-value {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.orders-filter-bar {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.orders-search-wrap {
+  flex: 1;
+  position: relative;
+  min-width: 260px;
+}
+
+.orders-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.orders-search-input {
+  width: 100%;
+  padding: 11px 16px 11px 40px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.orders-search-input:focus {
+  border-color: var(--primary-orange);
+}
+
+.orders-filter-select {
+  padding: 11px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+/* Orders Table Specifics */
+.orders-table .order-row:hover {
+  background: #fffbf9 !important;
+}
+
+.order-number-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-num-badge {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--primary-orange);
+  background: #fff3e0;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.order-date {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.customer-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.customer-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff5722, #ff8a65);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.customer-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #0f172a;
+}
+
+.customer-email {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.address-cell {
+  max-width: 220px;
+}
+
+.address-phone {
+  font-size: 0.86rem;
+  color: #334155;
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.address-text {
+  font-size: 0.8rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 210px;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  color: #334155;
+}
+
+.item-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary-orange);
+  flex-shrink: 0;
+}
+
+.item-qty {
+  font-weight: 700;
+  color: #64748b;
+  margin-left: 2px;
+}
+
+.order-total {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.payment-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-update-select {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+  font-weight: 500;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.status-update-select:focus {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12);
+}
+
+.orders-empty-state {
+  text-align: center;
+  padding: 60px 20px !important;
+  color: #94a3b8;
+}

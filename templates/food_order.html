@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}Order Delicious Food — Chef-Crafted Meals to Your Doorstep | CookMate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/food-order.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO BANNER (Strictly matching Reference Image 5) ================= -->
+<section class="food-order-hero">
+  <div class="container">
+    <div class="food-order-hero-grid">
+      
+      <!-- Left Hero Content -->
+      <div class="food-order-hero-text">
+        <h1>
+          Order Delicious <span class="text-orange">Food</span>
+        </h1>
+        <p>
+          From your favourite restaurants, delivered to your doorstep.
+        </p>
+
+        <!-- Search Bar with Orange Button -->
+        <div class="food-order-search-bar">
+          <input type="text" id="food-search-input" placeholder="Search for food (e.g. pizza, burger, biryani...)" 
+                 aria-label="Search food dishes">
+          <button type="button" onclick="searchFoodMenu(document.getElementById('food-search-input').value)">
+            Search
+          </button>
+        </div>
+
+        <!-- 4 Feature Badges -->
+        <div class="food-order-pills-row">
+          <div class="food-feature-pill">
+            <span>🛵</span> Fast Delivery
+          </div>
+          <div class="food-feature-pill">
+            <span>🛡️</span> Safe & Secure
+          </div>
+          <div class="food-feature-pill">
+            <span>👑</span> Best Restaurants
+          </div>
+          <div class="food-feature-pill">
+            <span>🍃</span> Fresh & Tasty
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Burger Hero Image -->
+      <div class="food-order-hero-media">
+        <img src="/static/images/burger.jpg" alt="Delicious Gourmet Burger with Fries and Drinks">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAIN 3-COLUMN WORKSPACE (Strictly matching Reference Image 5) ================= -->
+<section class="food-order-section">
+  <div class="container">
+    <div class="food-order-3col-layout">
+      
+      <!-- ================= LEFT COLUMN: CATEGORIES ================= -->
+      <aside class="food-categories-card">
+        <div class="food-categories-card-header">
+          <span>▦</span> Categories
+        </div>
+        <div class="food-categories-list" id="food-categories-list">
+          <div class="food-category-item active" onclick="filterFoodCategory('All', this)">
+            <div class="food-category-item-left">
+              <span class="icon">▦</span>
+              <span>All Food</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Pizza', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🍕</span>
+              <span>Pizza</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Burgers', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🍔</span>
+              <span>Burger</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Biryani', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🍚</span>
+              <span>Biryani</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Chinese', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🥢</span>
+              <span>Chinese</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('South Indian', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🥥</span>
+              <span>South Indian</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Main Course', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🥘</span>
+              <span>North Indian</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Pasta', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🍝</span>
+              <span>Pasta</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Dessert', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🍰</span>
+              <span>Desserts</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Beverages', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🥤</span>
+              <span>Beverages</span>
+            </div>
+          </div>
+          <div class="food-category-item" onclick="filterFoodCategory('Combos', this)">
+            <div class="food-category-item-left">
+              <span class="icon">🎁</span>
+              <span>Combos</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ================= CENTER COLUMN: FOOD CATALOG ================= -->
+      <main class="food-catalog-main">
+        <div class="food-catalog-header">
+          <h2 class="food-catalog-title" id="food-catalog-active-title">All Food</h2>
+          <div class="food-sort-wrap">
+            <label for="food-sort-select">Sort by:</label>
+            <select id="food-sort-select" class="food-sort-select" onchange="sortFoodCatalog(this.value)">
+              <option value="popular">Most Popular</option>
+              <option value="rating">Highest Rated</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 3-Column Food Grid -->
+        <div class="food-items-3col-grid" id="food-menu-grid">
+          {% for item in items %}
+            <article class="food-card food-item-card" 
+                     data-category="{{ item.category }}" 
+                     data-price="{{ item.discount_price if item.discount_price else item.price }}" 
+                     data-rating="{{ item.rating }}">
+              <div class="card-media">
+                <img src="{{ item.image_url }}" alt="{{ item.name }}" loading="lazy" onerror="this.src='/static/images/pizza.jpg'">
+                
+                <!-- Floating Favorite Button -->
+                <button class="fav-btn"
+                        data-item-id="{{ item.id }}"
+                        data-item-name="{{ item.name | e }}"
+                        data-item-image="{{ item.image_url | e }}"
+                        data-item-category="{{ item.category | e }}"
+                        onclick="toggleFavorite(this.dataset.itemId, this.dataset.itemName, this.dataset.itemImage, this.dataset.itemCategory, this)"
+                        title="Save to Favorites" aria-label="Save to Favorites">
+                  ❤️
+                </button>
+
+                {% if not item.is_available %}
+                  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 1.1rem; backdrop-filter: blur(2px);">
+                    Sold Out
+                  </div>
+                {% endif %}
+              </div>
+              <div class="card-body">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                  <h3 class="card-title">{{ item.name }}</h3>
+                  <span style="font-weight: 700; color: #d97706; font-size: 0.88rem;">⭐ {{ item.rating }}</span>
+                </div>
+                
+                <p class="card-desc">{{ item.description }}</p>
+
+                <div class="card-meta">
+                  <span>🕒 {{ item.prep_time }}</span>
+                  <span>•</span>
+                  <div class="price-box">
+                    {% if item.discount_price and item.discount_price < item.price %}
+                      <span class="current-price">₹{{ item.discount_price | round(0) }}</span>
+                      <span class="original-price">₹{{ item.price | round(0) }}</span>
+                    {% else %}
+                      <span class="current-price">₹{{ item.price | round(0) }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <div class="card-footer" style="padding-top: 12px; border-top: 1px solid #f1f5f9;">
+                  {% if item.is_available %}
+                    <button class="btn btn-primary btn-full btn-sm" onclick="addToCart('{{ item.id }}')" id="order-add-btn-{{ item.id }}">
+                      🛒 Add to Cart
+                    </button>
+                  {% else %}
+                    <button class="btn btn-dark btn-full btn-sm" disabled style="opacity: 0.55; cursor: not-allowed;">
+                      Unavailable
+                    </button>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        <!-- Empty Filter State -->
+        <div id="food-empty-msg" class="empty-state" style="display: none; margin-top: 30px;">
+          <div class="empty-state-icon">🍽️</div>
+          <h3>No Food Items Found</h3>
+          <p>Try searching for a different dish or select another category from the sidebar.</p>
+        </div>
+      </main>
+
+      <!-- ================= RIGHT COLUMN: YOUR CART & PROMOS ================= -->
+      <aside class="food-sidebar-right">
+        
+        <!-- Live Cart Card (Strictly matching Reference Image 5) -->
+        <div class="food-cart-card">
+          <div class="food-cart-header">
+            <div class="food-cart-title">
+              <span>🛒</span> Your Cart (<span id="sidebar-cart-count">0</span>)
+            </div>
+            <button type="button" class="food-cart-clear-btn" onclick="clearCart()">
+              Clear All
+            </button>
+          </div>
+
+          <!-- Dynamic Item Rows -->
+          <div class="food-cart-items-list" id="sidebar-cart-items">
+            <!-- Populated dynamically by main.js updateCartUI() -->
+          </div>
+
+          <!-- Total Amount Line -->
+          <div class="food-cart-total-box">
+            <span>Total Amount:</span>
+            <span class="text-orange" id="sidebar-cart-total">₹0.00</span>
+          </div>
+
+          <a href="{{ url_for('checkout_page') }}" class="btn btn-primary food-cart-checkout-btn" id="sidebar-cart-checkout-btn">
+            Proceed to Checkout →
+          </a>
+        </div>
+
+        <!-- Promo Card 1: Special Combos -->
+        <div class="sidebar-promo-card-combos">
+          <div class="sidebar-promo-badge">Special Combos</div>
+          <div class="sidebar-promo-title">Save More on Your Favourite Food!</div>
+          <button type="button" class="sidebar-promo-btn" onclick="filterFoodCategory('Combos', document.querySelectorAll('.food-category-item')[10])">
+            View Combos →
+          </button>
+        </div>
+
+        <!-- Promo Card 2: Fast & Fresh Delivery -->
+        <div class="sidebar-promo-card-delivery">
+          <div>
+            <div class="delivery-promo-title">Fast & Fresh Delivery</div>
+            <div class="delivery-promo-sub">Hot Food at Your Doorstep</div>
+            <a href="#food-menu-grid" class="delivery-promo-btn">
+              Order Now →
+            </a>
+          </div>
+          <div style="font-size: 2.8rem; line-height: 1;">
+            🛵
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/food_order.js') }}"></script>
+{% endblock %}

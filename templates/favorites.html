@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}My Favorite Recipes — CookMate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/favorites.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= FAVORITES HERO BANNER (Strictly matching Reference Image 4) ================= -->
+<section class="fav-hero">
+  <div class="fav-hero-overlay"></div>
+
+  <div class="container">
+    <div class="fav-hero-badge">
+      ❤️ YOUR CURATED COLLECTION
+    </div>
+    <h1 class="fav-hero-title">
+      My Favorite <span class="text-orange">Recipes</span>
+    </h1>
+    <p class="fav-hero-sub">
+      All your saved recipes in one place.
+    </p>
+  </div>
+</section>
+
+<!-- ================= 4-COLUMN FAVORITES GRID (Strictly matching Reference Image 4) ================= -->
+<section class="favorites-section">
+  <div class="container">
+    
+    {% if favorites and favorites | length > 0 %}
+      <div class="fav-4col-grid">
+        {% for fav in favorites %}
+          <article class="fav-recipe-card" data-id="{{ fav.meal_id }}">
+            <div class="fav-card-media">
+              <img src="{{ fav.meal_thumb }}" alt="{{ fav.meal_name }}" loading="lazy" onerror="this.src='/static/images/pasta-skillet.jpg'">
+              
+              <!-- White Circle Floating Button with Red Heart -->
+              <button class="fav-heart-btn"
+                      data-meal-id="{{ fav.meal_id }}"
+                      data-meal-name="{{ fav.meal_name | e }}"
+                      data-meal-thumb="{{ fav.meal_thumb | e }}"
+                      data-meal-category="{{ fav.meal_category | e }}"
+                      onclick="toggleFavorite(this.dataset.mealId, this.dataset.mealName, this.dataset.mealThumb, this.dataset.mealCategory, this)"
+                      title="Remove from Favorites" aria-label="Remove from Favorites">
+                ❤️
+              </button>
+            </div>
+            <div class="fav-card-body">
+              <h3 class="fav-card-title">{{ fav.meal_name }}</h3>
+              <div class="fav-card-meta">
+                <span>🕒 30 mins</span>
+                <span>📊 Medium</span>
+                <span class="rating">⭐ 4.6</span>
+              </div>
+              
+              <button class="fav-view-btn" onclick="openRecipeDetailModal('{{ fav.meal_id }}')">
+                View Recipe →
+              </button>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="fav-empty-container">
+        <div class="fav-empty-icon">🤍</div>
+        <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">No Saved Recipes Yet</h3>
+        <p style="color: var(--text-muted); max-width: 440px; margin: 0 auto 24px; line-height: 1.6;">
+          Tap the heart icon on any recipe to save it here for quick access next time you're cooking!
+        </p>
+        <a href="{{ url_for('recipes_page') }}" class="btn btn-primary">
+          Explore Recipes Now →
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/recipes.js') }}"></script>
+{% endblock %}

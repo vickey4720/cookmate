@@ -1,0 +1,199 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}View Orders — CookMate Admin{% endblock %}
+{% block breadcrumb_current %}Customer Orders{% endblock %}
+
+{% block admin_content %}
+
+<!-- Page Header -->
+<div class="orders-page-header">
+  <div>
+    <h1 class="admin-page-title">Manage <span>Customer Orders</span></h1>
+    <p class="admin-page-subtitle" style="margin-bottom: 0;">
+      Track orders, view delivery addresses, and update kitchen / delivery status in real time.
+    </p>
+  </div>
+  <div class="orders-header-actions">
+    <button class="orders-export-btn" onclick="exportOrdersCSV()" type="button">⬇ Export CSV</button>
+    <button class="orders-refresh-btn" onclick="location.reload()" type="button">↻ Refresh</button>
+  </div>
+</div>
+
+<!-- Stats Row -->
+<div class="orders-stats-row">
+  <div class="orders-stat-card stat-total">
+    <div class="stat-icon" style="background: #eff6ff;">📋</div>
+    <div class="stat-info">
+      <div class="stat-value">{{ orders | length }}</div>
+      <div class="stat-label">Total Orders</div>
+    </div>
+  </div>
+  <div class="orders-stat-card stat-placed">
+    <div class="stat-icon" style="background: #e0f2fe;">🕐</div>
+    <div class="stat-info">
+      <div class="stat-value">{{ orders | selectattr('status', 'equalto', 'Placed') | list | length }}</div>
+      <div class="stat-label">Placed</div>
+    </div>
+  </div>
+  <div class="orders-stat-card stat-preparing">
+    <div class="stat-icon" style="background: #fef3c7;">🍳</div>
+    <div class="stat-info">
+      <div class="stat-value">{{ orders | selectattr('status', 'equalto', 'Preparing') | list | length }}</div>
+      <div class="stat-label">Preparing</div>
+    </div>
+  </div>
+  <div class="orders-stat-card stat-delivered">
+    <div class="stat-icon" style="background: #dcfce7;">✅</div>
+    <div class="stat-info">
+      <div class="stat-value">{{ orders | selectattr('status', 'equalto', 'Delivered') | list | length }}</div>
+      <div class="stat-label">Delivered</div>
+    </div>
+  </div>
+</div>
+
+<!-- Search / Filter Bar -->
+<div class="orders-filter-bar">
+  <div class="orders-search-wrap">
+    <span class="orders-search-icon">🔍</span>
+    <input
+      type="text"
+      id="ordersSearchInput"
+      class="orders-search-input"
+      placeholder="Search by order #, customer, email, phone…"
+      oninput="filterOrders()"
+      aria-label="Search orders"
+    >
+  </div>
+  <select id="statusFilterSelect" class="orders-filter-select" onchange="filterOrders()" aria-label="Filter by Status">
+    <option value="">All Statuses</option>
+    <option value="Placed">Placed</option>
+    <option value="Confirmed">Confirmed</option>
+    <option value="Preparing">Preparing</option>
+    <option value="Out for Delivery">Out for Delivery</option>
+    <option value="Delivered">Delivered</option>
+    <option value="Cancelled">Cancelled</option>
+  </select>
+</div>
+
+<!-- Orders Table -->
+<div class="admin-table-wrap orders-table-wrap">
+  <table class="admin-table orders-table" id="ordersTable">
+    <thead>
+      <tr>
+        <th>Order #</th>
+        <th>Customer</th>
+        <th>Phone &amp; Address</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Payment</th>
+        <th>Status</th>
+        <th>Update Status</th>
+      </tr>
+    </thead>
+    <tbody id="ordersTableBody">
+      {% for o in orders %}
+        <tr class="order-row"
+            data-status="{{ o.status }}"
+            data-search="{{ o.order_number }} {{ o.customer_name }} {{ o.customer_email }} {{ o.customer_phone }}">
+          <td>
+            <div class="order-number-cell">
+              <span class="order-num-badge">#{{ o.order_number }}</span>
+              <div class="order-date">{{ o.created_at }}</div>
+            </div>
+          </td>
+          <td>
+            <div class="customer-cell">
+              <div class="customer-avatar">{{ o.customer_name[0] | upper }}</div>
+              <div>
+                <div class="customer-name">{{ o.customer_name }}</div>
+                <div class="customer-email">{{ o.customer_email }}</div>
+              </div>
+            </div>
+          </td>
+          <td class="address-cell">
+            <div class="address-phone">📞 {{ o.customer_phone }}</div>
+            <div class="address-text" title="{{ o.delivery_address }}">📍 {{ o.delivery_address }}</div>
+          </td>
+          <td>
+            <div class="items-list">
+              {% for itm in o['items'] %}
+                <div class="item-row">
+                  <span class="item-dot"></span>
+                  {{ itm.item_name }}<span class="item-qty">×{{ itm.quantity }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          </td>
+          <td><div class="order-total">₹{{ o.total_amount | round(2) }}</div></td>
+          <td><span class="payment-badge">{{ o.payment_method }}</span></td>
+          <td>
+            <span class="status-pill status-{{ o.status | lower | replace(' ', '-') }}">
+              {{ o.status }}
+            </span>
+          </td>
+          <td>
+            <select
+              class="form-select status-update-select"
+              data-order-id="{{ o.id }}"
+              id="status-select-{{ o.id }}"
+              aria-label="Update Order Status"
+            >
+              <option value="Placed"           {% if o.status == 'Placed' %}selected{% endif %}>🕐 Placed</option>
+              <option value="Confirmed"        {% if o.status == 'Confirmed' %}selected{% endif %}>✔ Confirmed</option>
+              <option value="Preparing"        {% if o.status == 'Preparing' %}selected{% endif %}>🍳 Preparing</option>
+              <option value="Out for Delivery" {% if o.status == 'Out for Delivery' %}selected{% endif %}>🚚 Out for Delivery</option>
+              <option value="Delivered"        {% if o.status == 'Delivered' %}selected{% endif %}>✅ Delivered</option>
+              <option value="Cancelled"        {% if o.status == 'Cancelled' %}selected{% endif %}>❌ Cancelled</option>
+            </select>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="8" class="orders-empty-state">
+            <div class="empty-icon">📭</div>
+            <div class="empty-title">No orders yet</div>
+            <div class="empty-sub">Orders from customers will appear here.</div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.status-update-select').forEach(function (sel) {
+    sel.addEventListener('change', function () {
+      updateOrderStatus(this.dataset.orderId, this.value);
+    });
+  });
+});
+
+function filterOrders() {
+  var query  = document.getElementById('ordersSearchInput').value.toLowerCase();
+  var status = document.getElementById('statusFilterSelect').value;
+  document.querySelectorAll('#ordersTableBody .order-row').forEach(function (row) {
+    var matchSearch = !query  || row.dataset.search.toLowerCase().includes(query);
+    var matchStatus = !status || row.dataset.status === status;
+    row.style.display = (matchSearch && matchStatus) ? '' : 'none';
+  });
+}
+
+function exportOrdersCSV() {
+  var table = document.getElementById('ordersTable');
+  var csv = Array.from(table.querySelectorAll('tr'))
+    .filter(function (r) { return r.style.display !== 'none'; })
+    .map(function (r) {
+      return Array.from(r.querySelectorAll('th, td'))
+        .map(function (c) { return '"' + c.innerText.replace(/"/g, '""').trim() + '"'; })
+        .join(',');
+    }).join('\n');
+  var a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([csv], { type: 'text/csv' })),
+    download: 'orders.csv'
+  });
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+</script>
+
+{% endblock %}

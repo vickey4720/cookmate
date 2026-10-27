@@ -1,0 +1,72 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Manage Food Items — CookMate Admin{% endblock %}
+{% block breadcrumb_current %}Manage Food Items{% endblock %}
+
+{% block admin_content %}
+<div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+  <div>
+    <h1 class="admin-page-title">Manage <span>Food Items</span></h1>
+    <p class="admin-page-subtitle" style="margin-bottom: 0;">View, edit, toggle availability, or remove dishes from your menu.</p>
+  </div>
+  <a href="{{ url_for('admin_add_food') }}" class="btn btn-primary" id="manage-food-add-btn">
+    ➕ Add New Item
+  </a>
+</div>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Food Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Discount</th>
+        <th>Prep Time</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr>
+          <td>
+            <img src="{{ item.image_url }}" alt="{{ item.name }}" style="width: 52px; height: 52px; border-radius: 8px; object-fit: cover;" onerror="this.src='/static/images/pizza.jpg'">
+          </td>
+          <td>
+            <strong style="color: var(--text-dark);">{{ item.name }}</strong>
+            <div style="font-size: 0.8rem; color: #64748b;">⭐ {{ item.rating }} | {{ item.serving_size }}</div>
+          </td>
+          <td>
+            <span class="badge badge-orange" style="font-size: 0.78rem;">{{ item.category }}</span>
+          </td>
+          <td style="font-weight: 700;">₹{{ item.price | round(2) }}</td>
+          <td>
+            {% if item.discount_price %}
+              <span style="color: var(--primary-orange); font-weight: 800;">₹{{ item.discount_price | round(2) }}</span>
+            {% else %}
+              <span style="color: #94a3b8;">—</span>
+            {% endif %}
+          </td>
+          <td>{{ item.prep_time }}</td>
+          <td>
+            <button onclick="toggleFoodAvailability('{{ item.id }}')" 
+                    class="status-pill {% if item.is_available %}status-delivered{% else %}status-cancelled{% endif %}"
+                    title="Click to toggle availability" style="cursor: pointer; border: none;">
+              {% if item.is_available %}● Available{% else %}● Sold Out{% endif %}
+            </button>
+          </td>
+          <td>
+            <form action="{{ url_for('admin_delete_food', item_id=item.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this food item?');">
+              <button type="submit" style="color: #ef4444; font-size: 0.86rem; font-weight: 700; padding: 6px 12px; border-radius: 6px; background: #fee2e2; border: 1px solid #fecaca; cursor: pointer; transition: all 0.2s ease;">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

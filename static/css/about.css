@@ -1,0 +1,422 @@
+/* =======================================================
+   COOKMATE - ABOUT & CONTACT US PAGE (about.css)
+   Strictly matches Reference Image 3.
+   ======================================================= */
+
+/* =======================================================
+   1. ABOUT HERO BANNER
+   ======================================================= */
+.about-hero-section {
+  background: linear-gradient(135deg, #0e1214 0%, #171d20 100%);
+  color: #ffffff;
+  padding: 68px 0 76px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero-section::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 87, 34, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 44px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.about-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-bottom: 18px;
+  letter-spacing: -0.5px;
+}
+
+.about-hero-desc {
+  color: #cbd5e1;
+  font-size: 1.12rem;
+  line-height: 1.65;
+  max-width: 540px;
+  margin-bottom: 32px;
+}
+
+.about-hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 3D Chef in About Hero */
+.about-hero-chef-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-hero-chef-img {
+  max-height: 390px;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  border: 3px solid rgba(255, 87, 34, 0.35);
+  transition: transform 0.4s ease;
+}
+
+.about-hero-chef-wrap:hover .about-hero-chef-img {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+.about-chef-badge-pill {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  background: linear-gradient(135deg, var(--primary-orange) 0%, #ff7043 100%);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.88rem;
+  box-shadow: 0 4px 16px rgba(255, 87, 34, 0.4);
+  letter-spacing: 0.2px;
+}
+
+/* =======================================================
+   2. WHAT IS COOKMATE SECTION
+   ======================================================= */
+.what-is-cookmate-section {
+  padding: 80px 0;
+  background-color: #ffffff;
+}
+
+.what-is-cookmate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.what-is-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  height: 340px;
+}
+
+.what-is-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.what-is-content .badge {
+  margin-bottom: 12px;
+}
+
+.what-is-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.what-is-desc {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* Metrics Badges Row */
+.what-is-metrics-row {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.metric-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.metric-num {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.1;
+}
+
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Warm Quote Card (Right Column) */
+.about-quote-card {
+  background-color: var(--warm-peach-bg);
+  border: 1.5px solid var(--warm-peach-border);
+  border-radius: var(--radius-xl);
+  padding: 36px 28px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.quote-mark {
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--primary-orange);
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-heading);
+}
+
+.quote-text {
+  font-style: italic;
+  color: #334155;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+.quote-author {
+  font-weight: 800;
+  color: var(--primary-orange);
+  font-size: 0.96rem;
+}
+
+/* =======================================================
+   3. WHY CHOOSE COOKMATE SECTION
+   ======================================================= */
+.why-choose-section {
+  padding: 80px 0;
+  background-color: var(--light-bg);
+}
+
+.why-choose-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.why-choose-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--light-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.why-choose-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.why-card-content {
+  padding: 24px 22px 18px;
+  flex: 1;
+}
+
+.why-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.why-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: var(--primary-orange-light);
+  color: var(--primary-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.why-card-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.why-card-content p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.why-card-img {
+  width: 100%;
+  height: 165px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.why-choose-card:hover .why-card-img {
+  transform: scale(1.05);
+}
+
+/* =======================================================
+   4. GET IN TOUCH / CONTACT US SECTION
+   ======================================================= */
+.contact-us-section {
+  padding: 84px 0 96px;
+  background-color: #ffffff;
+}
+
+.contact-us-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 0.9fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Left Contact Details */
+.contact-info-col .badge {
+  margin-bottom: 12px;
+}
+
+.contact-info-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.contact-info-sub {
+  color: var(--text-muted);
+  font-size: 0.96rem;
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+
+.contact-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contact-detail-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--warm-peach-bg);
+  border: 1.5px solid var(--warm-peach-border);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.contact-detail-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-orange-border);
+}
+
+.contact-detail-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--primary-orange);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--primary-orange-glow);
+}
+
+.contact-detail-text-main {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 1.05rem;
+}
+
+.contact-detail-text-main a {
+  color: var(--text-dark);
+}
+
+.contact-detail-text-main a:hover {
+  color: var(--primary-orange);
+}
+
+.contact-detail-text-sub {
+  font-size: 0.84rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* Center Form Box */
+.contact-form-card {
+  background-color: #fafaf9;
+  border: 1.5px solid var(--light-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Right Poster: Let's Talk Food! */
+.contact-graphic-poster {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  height: 440px;
+}
+
+.contact-graphic-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-poster-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 36px 30px;
+}
+
+.contact-poster-heading {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  line-height: 1.1;
+}

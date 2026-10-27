@@ -1,0 +1,219 @@
+/* =======================================================
+   COOKMATE - AUTHENTICATION (auth.css)
+   Sign In & Sign Up pages.
+   ======================================================= */
+
+.auth-viewport {
+  min-height: calc(100vh - 72px);
+  background: #0e1214 url('/static/images/auth-food-bg.jpg') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  position: relative;
+}
+
+.auth-viewport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 18, 20, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.auth-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Brand Header */
+.auth-brand-wrap {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.auth-brand-hat {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+.auth-brand-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  font-family: var(--font-display);
+}
+
+.auth-brand-title span {
+  color: var(--primary-orange);
+}
+
+.auth-brand-sub {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  margin-top: 4px;
+  letter-spacing: 0.3px;
+}
+
+/* Auth White Box */
+.auth-card {
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 38px 34px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-card-title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.auth-card-sub {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+/* Input Wrappers with Icons */
+.auth-input-wrap {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 1.15rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 13px 16px 13px 44px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--light-border);
+  font-size: 0.96rem;
+  color: var(--text-dark);
+  outline: none;
+  background-color: #ffffff;
+  transition: all var(--transition-fast);
+}
+
+.auth-input:focus {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.15);
+}
+
+.auth-password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 1.15rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.auth-password-toggle:hover {
+  color: var(--primary-orange);
+}
+
+/* Remember Me & Forgot Password */
+.auth-remember-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  font-size: 0.88rem;
+}
+
+.auth-remember-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  cursor: pointer;
+}
+
+.auth-remember-label input[type="checkbox"] {
+  accent-color: var(--primary-orange);
+  width: 16px;
+  height: 16px;
+}
+
+.auth-forgot-link {
+  color: var(--primary-orange);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.auth-forgot-link:hover {
+  color: var(--primary-orange-hover);
+  text-decoration: underline;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+/* Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.auth-divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--light-border);
+}
+
+.auth-divider-text {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+/* Switch Links */
+.auth-switch-text {
+  text-align: center;
+  font-size: 0.94rem;
+  color: #475569;
+}
+
+.auth-switch-text a {
+  color: var(--primary-orange);
+  font-weight: 700;
+}
+
+.auth-switch-text a:hover {
+  text-decoration: underline;
+}

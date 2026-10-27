@@ -1,0 +1,311 @@
+/* =======================================================
+   COOKMATE - RESPONSIVE DESIGN & MOBILE ADAPTATION (responsive.css)
+   Clean, fluid layouts across Desktop, Laptop, Tablet, and Mobile.
+   ======================================================= */
+
+/* =======================================================
+   1. LAPTOP & LARGE TABLET (max-width: 1199px)
+   ======================================================= */
+@media (max-width: 1199px) {
+  .food-order-3col-layout {
+    grid-template-columns: 210px 1fr 280px;
+    gap: 20px;
+  }
+
+  .food-items-3col-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fav-4col-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .why-choose-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .what-is-cookmate-grid,
+  .contact-us-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .what-is-media {
+    grid-column: span 2;
+    height: 280px;
+  }
+
+  .contact-graphic-poster {
+    grid-column: span 2;
+    height: 320px;
+  }
+
+  .footer-top {
+    grid-template-columns: 1.5fr 1fr 1.2fr 1.3fr;
+    gap: 32px;
+  }
+}
+
+/* =======================================================
+   2. TABLET (max-width: 991px)
+   ======================================================= */
+@media (max-width: 991px) {
+  /* Navbar */
+  .mobile-nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background-color: var(--dark-header);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    box-shadow: var(--shadow-xl);
+    z-index: 1005;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-item a {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 12px 18px;
+    font-size: 1rem;
+  }
+
+  /* Food Order Layout: Shift Right Cart below or stack */
+  .food-order-3col-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .food-categories-card {
+    position: static;
+  }
+
+  .food-categories-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .food-category-item {
+    white-space: nowrap;
+  }
+
+  .food-category-item.active::after {
+    display: none;
+  }
+
+  .food-sidebar-right {
+    position: static;
+  }
+
+  /* AI Chef Stage: Single Column */
+  .ai-chef-stage {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .chef-3d-scene-wrap {
+    height: 360px;
+  }
+
+  .chat-dialogue-column {
+    max-height: 400px;
+  }
+
+  /* Admin Workspace: Stack Form and Live Preview */
+  .admin-form-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-preview-column {
+    position: static;
+  }
+
+  .orders-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Favorites Grid */
+  .fav-4col-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* About & Home Hero Grids */
+  .about-hero-grid,
+  .food-order-hero-grid,
+  .ai-chef-preview-card,
+  .checkout-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .ai-chef-preview-avatar-wrap,
+  .about-hero-chef-wrap,
+  .food-order-hero-media {
+    order: -1;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+
+/* =======================================================
+   3. MOBILE (max-width: 767px)
+   ======================================================= */
+@media (max-width: 767px) {
+  /* Typography scale */
+  .hero-main-heading,
+  .about-hero-title,
+  .ai-chef-main-title {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 1.85rem;
+  }
+
+  /* Admin Layout */
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .admin-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 12px;
+  }
+
+  .admin-nav-item {
+    white-space: nowrap;
+    padding: 8px 14px;
+    font-size: 0.88rem;
+  }
+
+  .admin-topbar {
+    padding: 0 20px;
+  }
+
+  .admin-content-area {
+    padding: 24px 20px 48px;
+  }
+
+  /* Form Grids collapse to single column */
+  .form-row,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Cards Grids */
+  .food-items-3col-grid,
+  .card-grid,
+  .food-grid,
+  .recipe-grid,
+  .fav-4col-grid,
+  .why-choose-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .what-is-cookmate-grid,
+  .contact-us-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .what-is-media,
+  .contact-graphic-poster {
+    grid-column: span 1;
+    height: 240px;
+  }
+
+  /* Hero Search Bar */
+  .hero-search-wrap,
+  .food-order-search-bar {
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .hero-search-btn,
+  .food-order-search-bar button {
+    width: 100%;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .footer-legal-links {
+    justify-content: center;
+  }
+
+  .cart-drawer {
+    max-width: 100%;
+  }
+
+  .recipe-modal-content {
+    padding: 24px 20px;
+  }
+
+  .orders-stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =======================================================
+   4. SMALL MOBILE (max-width: 479px)
+   ======================================================= */
+@media (max-width: 479px) {
+  .nav-container {
+    padding: 0 16px;
+  }
+
+  .brand-title {
+    font-size: 1.3rem;
+  }
+
+  .brand-icon-hat {
+    font-size: 1.5rem;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .user-menu-btn span:not(.user-avatar-mini) {
+    display: none;
+  }
+
+  .form-actions-row {
+    flex-direction: column;
+  }
+
+  .btn-admin-submit,
+  .btn-admin-reset {
+    width: 100%;
+    justify-content: center;
+  }
+}

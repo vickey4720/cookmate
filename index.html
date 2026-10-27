@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CookMate — Your Smart Recipe Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#" data-nav="home">
+        <span class="brand-icon">👨‍🍳</span>
+        <span class="brand-text">
+          <span class="brand-name">Cook<em>Mate</em></span>
+          <span class="brand-tagline">Your Smart Recipe Companion</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="#" class="nav-link active" data-nav="home"><span class="nav-icon">🏠</span> Home</a>
+        <a href="#" class="nav-link" data-nav="favourites"><span class="nav-icon">♡</span> Favourites</a>
+        <a href="#" class="nav-link" data-nav="surprise"><span class="nav-icon">🎩</span> Surprise Me!</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <!-- ===== HOME VIEW ===== -->
+    <section id="view-home" class="view">
+
+      <section class="hero">
+        <div class="hero-decor hero-decor-left" aria-hidden="true">🍅🍅🌿</div>
+        <div class="hero-decor hero-decor-right" aria-hidden="true">🧄🫑🌿</div>
+        <div class="hero-inner">
+          <h1>What's Cooking Today?</h1>
+          <p class="hero-sub">Discover delicious recipes for your next meal.</p>
+
+          <div class="search-row">
+            <div class="search-block">
+              <label for="dishSearch">Search for a dish</label>
+              <div class="search-field">
+                <input type="text" id="dishSearch" placeholder="e.g. Pasta, Pizza, Chicken Curry...">
+                <button id="dishSearchBtn" class="btn btn-dark">🔍 Search</button>
+              </div>
+            </div>
+
+            <div class="search-divider">OR</div>
+
+            <div class="search-block">
+              <label for="ingredientSearch">Find recipes by ingredients</label>
+              <div class="search-field">
+                <input type="text" id="ingredientSearch" placeholder="e.g. tomato, onion, cheese...">
+                <button id="ingredientSearchBtn" class="btn btn-dark">🍲 Find Recipes</button>
+              </div>
+            </div>
+          </div>
+
+          <button id="surpriseBtn" class="btn btn-accent surprise-btn">🎲 Surprise Me!</button>
+          <p class="surprise-caption">Get a random delicious recipe</p>
+        </div>
+      </section>
+
+      <section class="results-section" id="resultsSection" hidden>
+        <div class="section-inner">
+          <div class="results-header">
+            <h2 id="resultsTitle">Results</h2>
+            <button id="clearResults" class="btn btn-ghost">✕ Clear</button>
+          </div>
+          <div class="recipe-grid" id="resultsGrid"></div>
+          <p class="empty-msg" id="resultsEmpty" hidden>No recipes matched. Try a different dish or ingredient.</p>
+        </div>
+      </section>
+
+      <section class="popular-section">
+        <div class="section-inner">
+          <h2 class="section-title">Popular Recipes</h2>
+          <div class="recipe-grid" id="popularGrid"></div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- ===== FAVOURITES VIEW ===== -->
+    <section id="view-favourites" class="view" hidden>
+      <div class="section-inner page-inner">
+        <h2 class="section-title">Your Favourites</h2>
+        <p class="page-sub">Recipes you've saved with the ♥ icon, kept right here for next time.</p>
+        <div class="recipe-grid" id="favouritesGrid"></div>
+        <p class="empty-msg" id="favouritesEmpty" hidden>No favourites yet — tap the heart on any recipe to save it
+          here.</p>
+      </div>
+    </section>
+
+    <!-- ===== SURPRISE VIEW ===== -->
+    <section id="view-surprise" class="view" hidden>
+      <div class="section-inner page-inner surprise-view">
+        <h2 class="section-title">Surprise Me!</h2>
+        <p class="page-sub">Can't decide what to cook? Let CookMate choose for you.</p>
+        <button id="surpriseAgainBtn" class="btn btn-accent surprise-btn">🎲 Give Me Another</button>
+        <div id="surpriseCard" class="surprise-card-wrap"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== RECIPE DETAIL MODAL ===== -->
+  <div class="modal-overlay" id="recipeModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <p>👨‍🍳 CookMate © 2026 | Made with <span class="heart">❤️</span> for food lovers</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
