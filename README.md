@@ -37,7 +37,7 @@ CookMate makes finding and discovering recipes easier by helping users explore d
 
 ## 👨‍💻 Author
 
-Vicky
+Vickey
 
 ## 📄 License
 
